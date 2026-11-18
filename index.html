@@ -1,0 +1,1148 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portafolio de Evidencias - Base de Datos I</title>
+  <style>
+    :root {
+      /* Paleta Tecnológica & Base de Datos: Azul Profundo, Cyan Neón, Púrpura de Servidores */
+      --bg-dark: #070c18;
+      --card-bg: #0d172a;
+      --card-inner: #132238;
+      --accent-cyan: #00f2fe;
+      --accent-blue: #4facfe;
+      --accent-purple: #7f53ac;
+      --accent-gold: #ffb703;
+      --text-light: #f1f5f9;
+      --text-muted: #94a3b8;
+      --border-tech: #1e3a8a;
+      --tech-grid: rgba(0, 242, 254, 0.07);
+      --cyan-glow: rgba(0, 242, 254, 0.35);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
+      background-color: var(--bg-dark);
+      /* Fondo con cuadrícula cibernética y resplandores de centro de datos */
+      background-image: 
+        radial-gradient(circle at 15% 25%, rgba(0, 242, 254, 0.12) 0%, transparent 45%),
+        radial-gradient(circle at 85% 75%, rgba(127, 83, 172, 0.15) 0%, transparent 45%),
+        repeating-linear-gradient(0deg, transparent, transparent 39px, var(--tech-grid) 39px, var(--tech-grid) 40px),
+        repeating-linear-gradient(90deg, transparent, transparent 39px, var(--tech-grid) 39px, var(--tech-grid) 40px),
+        radial-gradient(ellipse at center, rgba(13, 23, 42, 0.92) 0%, rgba(7, 12, 24, 0.99) 100%);
+      background-attachment: fixed;
+      color: var(--text-light);
+      margin: 0;
+      padding: 20px 10px;
+      line-height: 1.6;
+    }
+
+    .container {
+      max-width: 980px;
+      margin: 0 auto;
+    }
+
+    /* PORTADA DE PRESENTACIÓN TECNOLÓGICA */
+    .cover-page {
+      background: linear-gradient(145deg, #0e1a30, #080d1a);
+      color: var(--text-light);
+      border: 2px solid var(--accent-cyan);
+      border-radius: 14px;
+      padding: 22px 20px;
+      box-shadow: 0 15px 45px rgba(0,0,0,0.85), inset 0 0 60px rgba(0, 242, 254, 0.08), 0 0 25px rgba(0, 242, 254, 0.2);
+      text-align: center;
+      margin-bottom: 20px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .bg-icon-layer {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+    }
+
+    .bg-icon {
+      position: absolute;
+      opacity: 0.35;
+      color: var(--accent-cyan);
+      filter: drop-shadow(0 0 12px var(--cyan-glow));
+      animation: floatSlow 10s ease-in-out infinite alternate;
+      transition: all 0.3s ease;
+    }
+
+    .bg-icon.db-server {
+      top: -20px;
+      right: -20px;
+      width: 220px;
+      height: 220px;
+      opacity: 0.45;
+    }
+
+    .bg-icon.sql-terminal {
+      bottom: 10px;
+      left: -10px;
+      width: 200px;
+      height: 200px;
+      opacity: 0.40;
+      animation-delay: -2s;
+    }
+
+    .bg-icon.er-diagram {
+      top: 15%;
+      left: 2%;
+      width: 200px;
+      height: 140px;
+      opacity: 0.45;
+      animation-delay: -5s;
+    }
+
+    .bg-icon.cloud-db {
+      top: 10%;
+      right: 5%;
+      width: 160px;
+      height: 160px;
+      opacity: 0.38;
+      animation-delay: -1.5s;
+    }
+
+    .bg-icon.key-pk {
+      bottom: 12%;
+      right: 3%;
+      width: 150px;
+      height: 150px;
+      opacity: 0.42;
+      animation-delay: -7s;
+    }
+
+    .bg-icon.binary-nodes {
+      bottom: -10px;
+      left: 35%;
+      width: 160px;
+      height: 160px;
+      opacity: 0.35;
+      animation-delay: -3.5s;
+    }
+
+    @keyframes floatSlow {
+      0% { transform: translateY(0px) rotate(0deg) scale(1); }
+      50% { transform: translateY(-10px) rotate(2deg) scale(1.02); }
+      100% { transform: translateY(8px) rotate(-2deg) scale(0.98); }
+    }
+
+    .cover-content-relative {
+      position: relative;
+      z-index: 2;
+    }
+
+    .logo-container {
+      margin-bottom: 2px;
+    }
+
+    .cover-logo {
+      width: 100%;
+      max-width: 440px;
+      height: auto;
+      object-fit: contain;
+      filter: drop-shadow(0 6px 15px rgba(0,0,0,0.8));
+      border-bottom: 2px solid var(--accent-cyan);
+      padding-bottom: 8px;
+    }
+
+    .cover-section {
+      margin-bottom: 14px;
+    }
+
+    .cover-section h3 {
+      font-size: 1.15rem;
+      font-weight: 700;
+	  margin-top: 0;
+      margin-bottom: 6px;
+      color: var(--accent-cyan);
+      text-transform: uppercase;
+      letter-spacing: 1.8px;
+      display: inline-block;
+      position: relative;
+      padding: 0 18px 5px 18px;
+      text-shadow: 0 0 12px rgba(0, 242, 254, 0.5);
+    }
+
+    .cover-section h3::after {
+      content: "";
+      position: absolute;
+      bottom: 0;
+	  left: 5%;
+      width: 90%;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--accent-cyan), transparent);
+    }
+
+    .cover-section p {
+      font-size: 1.15rem;
+      margin: 4px 0;
+      color: var(--text-light);
+      font-weight: 300;
+    }
+
+    /* Lista de Integrantes */
+    .members-list {
+      max-width: 640px;
+      margin: 20px auto 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px 20px;
+    }
+
+    @media (max-width: 580px) {
+      .members-list {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .member-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 16px;
+      background: rgba(13, 23, 42, 0.85);
+      border-radius: 8px;
+      border: 1px solid var(--border-tech);
+      font-size: 0.95rem;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+      backdrop-filter: blur(4px);
+    }
+
+    .member-name {
+      font-weight: 600;
+      text-align: left;
+      color: #ffffff;
+    }
+
+    .member-id {
+      color: var(--accent-cyan);
+      font-family: 'Consolas', 'Courier New', monospace;
+      font-weight: bold;
+      margin-left: 8px;
+      text-shadow: 0 0 6px rgba(0, 242, 254, 0.4);
+    }
+	
+	.sql-roster-box {
+      max-width: 720px;
+      margin: 18px auto 0 auto;
+      background: rgba(7, 12, 24, 0.92);
+      border: 1px solid var(--accent-cyan);
+      border-radius: 10px;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.7), 0 0 15px rgba(0, 242, 254, 0.15);
+      overflow: hidden;
+      text-align: left;
+    }
+
+    .sql-terminal-header {
+      background: linear-gradient(90deg, #0d172a, #132238);
+      padding: 8px 14px;
+      border-bottom: 1px solid var(--border-tech);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .sql-dots {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .sql-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+    }
+    .sql-dot.red { background: #ff5f56; }
+    .sql-dot.yellow { background: #ffbd2e; }
+    .sql-dot.green { background: #27c93f; }
+
+    .sql-query-label {
+      font-family: 'Consolas', 'Courier New', monospace;
+      font-size: 0.85rem;
+      color: var(--accent-cyan);
+      margin-left: 8px;
+    }
+
+    .sql-search-input {
+      background: rgba(5, 9, 20, 0.9);
+      border: 1px solid var(--border-tech);
+      color: var(--text-light);
+      padding: 5px 10px;
+      border-radius: 6px;
+      font-size: 0.85rem;
+      font-family: inherit;
+      outline: none;
+      width: 210px;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    .sql-search-input:focus {
+      border-color: var(--accent-cyan);
+      box-shadow: 0 0 8px rgba(0, 242, 254, 0.3);
+    }
+
+    .sql-table-wrapper {
+      max-height: 245px;
+      overflow-y: auto;
+    }
+
+    /* Scrollbar estilizado en Cyan */
+    .sql-table-wrapper::-webkit-scrollbar {
+      width: 7px;
+    }
+    .sql-table-wrapper::-webkit-scrollbar-track {
+      background: #070c18;
+    }
+    .sql-table-wrapper::-webkit-scrollbar-thumb {
+      background: var(--border-tech);
+      border-radius: 4px;
+    }
+    .sql-table-wrapper::-webkit-scrollbar-thumb:hover {
+      background: var(--accent-cyan);
+    }
+
+    .sql-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.9rem;
+    }
+
+    .sql-table thead th {
+      position: sticky;
+      top: 0;
+      background: #0e1a30;
+      color: var(--accent-cyan);
+      font-family: 'Consolas', 'Courier New', monospace;
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      padding: 9px 14px;
+      border-bottom: 1px solid var(--accent-cyan);
+      z-index: 1;
+    }
+
+    .sql-table tbody tr {
+      border-bottom: 1px solid rgba(30, 58, 138, 0.45);
+      transition: background 0.2s;
+    }
+
+    .sql-table tbody tr:hover {
+      background: rgba(0, 242, 254, 0.08);
+    }
+
+    .sql-table td {
+      padding: 8px 14px;
+      color: var(--text-light);
+    }
+
+    .col-pk {
+      font-family: 'Consolas', 'Courier New', monospace;
+      color: var(--accent-gold);
+      font-weight: bold;
+      width: 65px;
+    }
+
+    .col-cedula {
+      font-family: 'Consolas', 'Courier New', monospace;
+      color: var(--accent-cyan);
+      text-align: right;
+    }
+
+    .sql-footer-status {
+      background: #0a1222;
+      padding: 6px 14px;
+      font-family: 'Consolas', 'Courier New', monospace;
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      border-top: 1px solid var(--border-tech);
+      display: flex;
+      justify-content: space-between;
+    }
+
+    /* Botón Principal */
+    .btn-enter {
+      display: inline-block;
+      background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
+      color: #ffffff;
+      font-weight: bold;
+      padding: 15px 38px;
+      border-radius: 8px;
+      border: 1px solid var(--accent-cyan);
+      cursor: pointer;
+      font-size: 1.1rem;
+      transition: all 0.3s ease;
+      box-shadow: 0 6px 20px rgba(79, 172, 254, 0.4), 0 0 15px rgba(0, 242, 254, 0.3);
+      letter-spacing: 0.8px;
+      font-family: inherit;
+    }
+
+    .btn-enter:hover {
+      transform: translateY(-3px) scale(1.02);
+      box-shadow: 0 8px 25px rgba(0, 242, 254, 0.6);
+      color: #ffffff;
+    }
+
+    /* Encabezado del Portafolio */
+    header#portfolio-header {
+      background: linear-gradient(145deg, #0e1a30, #080d1a);
+      border: 2px solid var(--accent-cyan);
+      border-radius: 12px;
+      padding: 25px;
+      text-align: center;
+      margin-bottom: 25px;
+      box-shadow: 0 8px 28px rgba(0,0,0,0.7), 0 0 15px rgba(0, 242, 254, 0.15);
+      position: relative;
+    }
+
+    header#portfolio-header h1 {
+      color: var(--accent-cyan);
+      margin: 0 0 10px 0;
+      font-size: 2.2rem;
+      letter-spacing: 1px;
+      text-shadow: 0 0 12px rgba(0, 242, 254, 0.4);
+    }
+
+    header#portfolio-header p {
+      color: var(--text-muted);
+      margin: 0;
+      font-size: 1.05rem;
+    }
+
+    /* Navegación por Módulos */
+    .weeks-nav {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+      gap: 12px;
+      margin-bottom: 30px;
+    }
+
+    .week-btn {
+      background: var(--card-bg);
+      border: 1px solid var(--border-tech);
+      color: var(--text-light);
+      padding: 12px 10px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.25s ease;
+      text-align: center;
+      font-size: 0.9rem;
+      font-family: inherit;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 50px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.4);
+    }
+
+    .week-btn:hover {
+      background: var(--accent-purple);
+      border-color: var(--accent-cyan);
+      color: #ffffff;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 15px rgba(127, 83, 172, 0.5), 0 0 10px rgba(0, 242, 254, 0.3);
+    }
+
+    .btn-back {
+      display: inline-block;
+      background: var(--card-bg);
+      color: var(--accent-cyan);
+      border: 1px solid var(--accent-cyan);
+      padding: 10px 22px;
+      border-radius: 8px;
+      cursor: pointer;
+      margin-bottom: 20px;
+      font-weight: 600;
+      font-family: inherit;
+      transition: all 0.2s;
+      box-shadow: 0 3px 8px rgba(0,0,0,0.4);
+    }
+
+    .btn-back:hover {
+      background: var(--border-tech);
+      color: #ffffff;
+    }
+
+    /* Tarjetas de Evidencia */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(440px, 1fr));
+      gap: 25px;
+    }
+
+    .card {
+      background: linear-gradient(160deg, #0d172a, #09101f);
+      border: 1px solid var(--border-tech);
+      border-radius: 12px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.6);
+      position: relative;
+    }
+
+    .card::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--accent-cyan), var(--accent-blue), var(--accent-purple));
+    }
+
+    .carousel-container {
+      position: relative;
+      width: 100%;
+      height: 250px;
+      background-color: #050914;
+      border-bottom: 1px solid var(--border-tech);
+      overflow: hidden;
+    }
+
+    .carousel-img {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.4s ease-in-out;
+      cursor: zoom-in;
+    }
+
+    .carousel-img.active {
+      opacity: 1;
+      pointer-events: auto;
+      z-index: 1;
+    }
+
+    .carousel-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(13, 23, 42, 0.9);
+      color: var(--accent-cyan);
+      border: 1px solid var(--accent-cyan);
+      border-radius: 50%;
+      width: 36px;
+      height: 36px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      font-size: 1rem;
+      z-index: 2;
+      transition: background 0.2s, color 0.2s;
+    }
+
+    .carousel-btn:hover {
+      background: var(--accent-cyan);
+      color: #070c18;
+      box-shadow: 0 0 10px var(--accent-cyan);
+    }
+
+    .carousel-btn.prev { left: 8px; }
+    .carousel-btn.next { right: 8px; }
+
+    .carousel-dots {
+      position: absolute;
+      bottom: 10px;
+      left: 0;
+      right: 0;
+      display: flex;
+      justify-content: center;
+      gap: 6px;
+      z-index: 2;
+    }
+
+    .dot {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.35);
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .dot.active {
+      background: var(--accent-cyan);
+      box-shadow: 0 0 6px var(--accent-cyan);
+    }
+
+    .card-content {
+      padding: 22px;
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+    }
+
+    .week-badge {
+      align-self: flex-start;
+      background: rgba(0, 242, 254, 0.15);
+      color: var(--accent-cyan);
+      padding: 4px 12px;
+      border-radius: 6px;
+      font-size: 0.85rem;
+      font-weight: bold;
+      margin-bottom: 12px;
+      border: 1px solid rgba(0, 242, 254, 0.4);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      box-shadow: 0 0 8px rgba(0, 242, 254, 0.2);
+    }
+
+    .card h2 {
+      margin: 0 0 12px 0;
+      font-size: 1.25rem;
+      color: #ffffff;
+      line-height: 1.3;
+    }
+
+    .card h3 {
+      font-size: 1rem;
+      color: var(--accent-cyan);
+      margin: 14px 0 6px 0;
+      border-left: 3px solid var(--accent-blue);
+      padding-left: 8px;
+    }
+
+    .card p {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      margin: 0 0 8px 0;
+    }
+
+    /* Modal / Pantalla Completa */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(5, 9, 20, 0.95);
+      justify-content: center;
+      align-items: center;
+    }
+
+    .modal-content {
+      max-width: 92%;
+      max-height: 92%;
+      border-radius: 8px;
+      border: 2px solid var(--accent-cyan);
+      box-shadow: 0 0 35px rgba(0, 242, 254, 0.4);
+      object-fit: contain;
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 20px;
+      right: 30px;
+      color: var(--text-light);
+      font-size: 40px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: color 0.2s;
+    }
+
+    .modal-close:hover {
+      color: var(--accent-cyan);
+    }
+
+    .hidden {
+      display: none !important;
+    }
+	
+	.text-page-container {
+      background: linear-gradient(145deg, #0e1a30, #080d1a);
+      border: 2px solid var(--accent-cyan);
+      border-radius: 14px;
+      padding: 35px 30px;
+      box-shadow: 0 15px 45px rgba(0,0,0,0.85), 0 0 25px rgba(0, 242, 254, 0.15);
+      max-width: 850px;
+      margin: 0 auto;
+      text-align: left;
+    }
+
+    .text-page-container h2 {
+      color: var(--accent-cyan);
+      font-size: 1.8rem;
+      margin-top: 0;
+      margin-bottom: 20px;
+      border-bottom: 2px solid var(--border-tech);
+      padding-bottom: 10px;
+      text-shadow: 0 0 10px rgba(0, 242, 254, 0.4);
+    }
+
+    .text-page-container p {
+      color: var(--text-light);
+      font-size: 1.05rem;
+      line-height: 1.8;
+      margin-bottom: 16px;
+    }
+	
+  </style>
+</head>
+<body>
+
+  <div class="container">
+
+    <!-- PRIMERA PÁGINA: HOJA DE PRESENTACIÓN BASE DE DATOS -->
+    <div id="cover-view">
+      <div class="cover-page">
+        
+        <div class="bg-icon-layer" aria-hidden="true">
+          <!-- 1. Base de Datos / Cilindros Relacionales -->
+          <svg class="bg-icon db-server" viewBox="0 0 100 100" fill="currentColor">
+            <path d="M50 10 C20 10 20 25 20 25 C20 25 20 40 50 40 C80 40 80 25 80 25 C80 25 80 10 50 10 Z"/>
+            <path d="M20 25 L20 50 C20 65 80 65 80 50 L80 25" fill="none" stroke="currentColor" stroke-width="4"/>
+            <path d="M20 50 L20 75 C20 90 80 90 80 75 L80 50" fill="none" stroke="currentColor" stroke-width="4"/>
+          </svg>
+
+          <!-- 2. Terminal de Consola SQL -->
+          <svg class="bg-icon sql-terminal" viewBox="0 0 100 100" fill="currentColor">
+            <rect x="10" y="20" width="80" height="60" rx="6" fill="none" stroke="currentColor" stroke-width="4"/>
+            <line x1="10" y1="35" x2="90" y2="35" stroke="currentColor" stroke-width="3"/>
+            <circle cx="20" cy="27" r="2.5"/>
+            <circle cx="28" cy="27" r="2.5"/>
+            <circle cx="36" cy="27" r="2.5"/>
+            <path d="M22 48 L32 55 L22 62" fill="none" stroke="currentColor" stroke-width="3"/>
+            <line x1="38" y1="62" x2="52" y2="62" stroke="currentColor" stroke-width="3"/>
+          </svg>
+
+          <!-- 3. Diagrama Entidad-Relación (DER) -->
+          <svg class="bg-icon er-diagram" viewBox="0 0 200 100" fill="currentColor">
+            <rect x="15" y="35" width="45" height="30" rx="3" fill="none" stroke="currentColor" stroke-width="3"/>
+            <polygon points="100,50 120,35 140,50 120,65" fill="none" stroke="currentColor" stroke-width="3"/>
+            <rect x="150" y="35" width="45" height="30" rx="3" fill="none" stroke="currentColor" stroke-width="3"/>
+            <line x1="60" y1="50" x2="100" y2="50" stroke="currentColor" stroke-width="2"/>
+            <line x1="140" y1="50" x2="150" y2="50" stroke="currentColor" stroke-width="2"/>
+          </svg>
+
+          <!-- 4. Base de Datos en la Nube -->
+          <svg class="bg-icon cloud-db" viewBox="0 0 100 100" fill="currentColor">
+            <path d="M25 60 C15 60 10 50 18 40 C15 28 30 20 42 26 C50 15 70 18 75 30 C88 32 90 48 80 58 C88 68 75 80 62 76" fill="none" stroke="currentColor" stroke-width="4"/>
+            <path d="M40 50 C30 50 30 58 50 58 C70 58 70 50 40 50 Z"/>
+            <path d="M30 58 L30 70 C30 78 70 78 70 70 L70 58" fill="none" stroke="currentColor" stroke-width="3"/>
+          </svg>
+
+          <!-- 5. Clave Primaria (Primary Key / PK) -->
+          <svg class="bg-icon key-pk" viewBox="0 0 100 100" fill="currentColor">
+            <circle cx="35" cy="35" r="18" stroke="currentColor" stroke-width="4" fill="none"/>
+            <rect x="49" y="32" width="40" height="6" rx="2"/>
+            <rect x="75" y="38" width="6" height="12"/>
+            <rect x="83" y="38" width="5" height="8"/>
+          </svg>
+
+          <!-- 6. Nodos de Red / Estructura de Datos -->
+          <svg class="bg-icon binary-nodes" viewBox="0 0 100 100" fill="currentColor">
+            <circle cx="50" cy="20" r="8"/>
+            <circle cx="20" cy="75" r="8"/>
+            <circle cx="80" cy="75" r="8"/>
+            <line x1="50" y1="20" x2="20" y2="75" stroke="currentColor" stroke-width="3"/>
+            <line x1="50" y1="20" x2="80" y2="75" stroke="currentColor" stroke-width="3"/>
+            <line x1="20" y1="75" x2="80" y2="75" stroke="currentColor" stroke-width="2" stroke-dasharray="4 2"/>
+          </svg>
+        </div>
+
+        <!-- CONTENIDO DE LA PORTADA -->
+        <div class="cover-content-relative">
+          <div class="logo-container">
+            <img src="images/logo-itse.png" alt="Logo Institucional" class="cover-logo" onerror="this.src='https://placehold.co/440x110/0d172a/00f2fe?text=Base+de+Datos+I'">
+          </div>
+
+          <div class="cover-section" style="margin-bottom: 8px;">
+            <h3 style="margin-bottom: 2px;">Portafolio de Evidencias</h3>
+			<p style="margin: 0; font-size: 1.05rem;">Base de Datos I</p>
+          </div>
+		
+		<div class="cover-section" style="margin-bottom: 12px;">
+            <h3>Profesor Docente</h3>
+            <p>Ricardo Haynes</p>
+          </div>
+
+          <div class="cover-section">
+            <h3>Integrantes del Salón D-CS-2-1</h3>
+
+            <div class="sql-roster-box">
+              <!-- Barra superior tipo consola SQL -->
+              <div class="sql-terminal-header">
+                <div class="sql-dots">
+                  <span class="sql-dot red"></span>
+                  <span class="sql-dot yellow"></span>
+                  <span class="sql-dot green"></span>
+                  <span class="sql-query-label">SELECT * FROM estudiantes;</span>
+                </div>
+                <input
+                  type="text"
+                  id="studentSearch"
+                  class="sql-search-input"
+                  placeholder="🔍 Buscar nombre o cédula..."
+                  onkeyup="filterStudents()"
+                >
+              </div>
+
+              <!-- Tabla con scroll interno -->
+              <div class="sql-table-wrapper">
+                <table class="sql-table" id="studentsTable">
+                  <thead>
+                    <tr>
+                      <th>ID(PK)</th>
+                      <th>Estudiante</th>
+                      <th style="text-align: right;">Cédula</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr><td class="col-pk">01</td><td>Alba, Jordith</td><td class="col-cedula">8-1052-44</td></tr>
+					<tr><td class="col-pk">02</td><td>Aviles, David</td><td class="col-cedula">8-1052-2087</td></tr>
+					<tr><td class="col-pk">03</td><td>Bejerano, Julissa</td><td class="col-cedula">8-973-1882</td></tr>
+					<tr><td class="col-pk">04</td><td>Bonilla, Elías</td><td class="col-cedula">8-1055-957</td></tr>
+					<tr><td class="col-pk">05</td><td>Caraballo, Carlos</td><td class="col-cedula">8-879-2432</td></tr>
+					<tr><td class="col-pk">06</td><td>Cardozo, Miriam</td><td class="col-cedula">E-8-16-2024</td></tr>
+                    <tr><td class="col-pk">07</td><td>Castillo, Ricardo</td><td class="col-cedula">8-921-901</td></tr>
+                    <tr><td class="col-pk">08</td><td>Edwards, Francisco</td><td class="col-cedula">8-1070-1096</td></tr>
+					<tr><td class="col-pk">09</td><td>González, Isabel</td><td class="col-cedula">8-822-1535</td></tr>
+					<tr><td class="col-pk">10</td><td>González, Yailin</td><td class="col-cedula">2-760-1265</td></tr>
+					<tr><td class="col-pk">11</td><td>Gunning, Gabriel</td><td class="col-cedula">8-335-668</td></tr>
+                    <tr><td class="col-pk">12</td><td>Herrera, Alejandra</td><td class="col-cedula">8-1008-1013</td></tr>
+					<tr><td class="col-pk">13</td><td>Jiménez, Osiel</td><td class="col-cedula">8-1050-1328</td></tr>
+					<tr><td class="col-pk">14</td><td>Mata, Abdi</td><td class="col-cedula">8-1011-1391</td></tr>
+					<tr><td class="col-pk">15</td><td>Tejeira, Pedro</td><td class="col-cedula">8-741-1265</td></tr>
+					<tr><td class="col-pk">16</td><td>Vargas, Wagner</td><td class="col-cedula">************</td></tr>
+                    <tr><td class="col-pk">17</td><td>Vives, Levis</td><td class="col-cedula">E-8-22-4213</td></tr>
+					<tr><td class="col-pk">18</td><td>Wilson, Eliecer</td><td class="col-cedula">8-800-1826</td></tr>
+				  </tbody>
+                </table>
+              </div>
+
+              <!-- Barra de estado tipo motor de BD -->
+              <div class="sql-footer-status">
+                <span id="sqlRowCount">18 rows in set</span>
+                <span>Engine: InnoDB | UTF-8</span>
+              </div>
+            </div>
+          </div>
+
+        <div style="display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-top: 15px;">
+            <button class="week-btn" style="padding: 12px 20px; font-size: 0.95rem;" onclick="location.hash='intro'">📖 Introducción</button>
+            <button class="btn-enter" onclick="openPortfolio()">Explorar Módulos →</button>
+            <button class="week-btn" style="padding: 12px 20px; font-size: 0.95rem;" onclick="location.hash='conclusion'">📌 Conclusiones</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- PÁGINAS SIGUIENTES: NAVEGACIÓN Y PORTAFOLIO -->
+    <div id="portfolio-view" class="hidden">
+      
+      <!-- Barra superior unificada: Volver, Ver Todos, Introducción y Conclusión -->
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; flex-wrap: wrap; gap: 10px;">
+        
+        <!-- Grupo Izquierdo: Volver a Portada + Ver Todos -->
+        <div style="display: flex; gap: 10px; flex-wrap: wrap; align-items: center;">
+          <button class="btn-back" style="margin-bottom: 0;" onclick="showCover()">📋 Volver a la Portada</button>
+          <button class="week-btn" style="padding: 10px 18px; font-size: 0.9rem; min-height: auto; background: var(--card-bg); border-color: var(--border-tech);" onclick="filterWeek('all')">📂 Ver Todo</button>
+        </div>
+        
+        <!-- Grupo Derecho: Introducción y Conclusión -->
+        <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+          <button class="week-btn" style="padding: 10px 18px; font-size: 0.9rem; min-height: auto; background: rgba(0, 242, 254, 0.15); border-color: var(--accent-cyan);" onclick="location.hash='intro'">📖 Introducción</button>
+          <button class="week-btn" style="padding: 10px 18px; font-size: 0.9rem; min-height: auto; background: rgba(127, 83, 172, 0.25); border-color: var(--accent-purple);" onclick="location.hash='conclusion'">📌 Conclusiones</button>
+        </div>
+
+      </div>
+
+      <!-- Encabezado que se muestra al filtrar o ver todo -->
+      <header id="portfolio-header">
+        <h1>Portafolio de Base de Datos I</h1>
+        <p>Grupo D-CS-2-1 | Compendio de Modelado, Diagramas Entidad-Relación, Normalización y Lenguaje SQL</p>
+      </header>
+
+      <!-- Navegación por Módulos Temáticos de Base de Datos I -->
+      <div class="weeks-nav">
+        <button class="week-btn" onclick="filterWeek('modulo-1')">01. Fundamentos</button>
+        <button class="week-btn" onclick="filterWeek('modulo-2')">02. Modelado</button>
+        <button class="week-btn" onclick="filterWeek('modulo-3')">03. Reglas</button>
+        <button class="week-btn" onclick="filterWeek('modulo-4')">04. Módulo 04</button>
+        <button class="week-btn" onclick="filterWeek('modulo-5')">05. Módulo 05</button>
+		<button class="week-btn" onclick="filterWeek('modulo-6')">06. Módulo 06</button>
+        <button class="week-btn" onclick="filterWeek('modulo-7')">07. Módulo 07</button>
+        <button class="week-btn" onclick="filterWeek('modulo-8')">08. Módulo 08</button>
+      </div>
+	  <main class="grid">
+
+        <!-- Módulo 1 -->
+        <article class="card week-card modulo-1">
+          <div class="carousel-container">
+            <img src="images/Semana01-1.jpg" alt="Conceptos de SGBD" class="carousel-img active" onclick="openModal(this.src)" onerror="this.src='https://placehold.co/600x350/050914/00f2fe?text=Arquitectura+SGBD+y+Sistemas+de+Archivos'">
+            <img src="images/semana01-2.png" alt="Arquitectura ANSI SPARC" class="carousel-img" onclick="openModal(this.src)" onerror="this.src='https://placehold.co/600x350/050914/4facfe?text=Arquitectura+ANSI%2FSPARC+(3+Niveles)'">
+            <button class="carousel-btn prev" onclick="moveSlide(this, -1)">❮</button>
+            <button class="carousel-btn next" onclick="moveSlide(this, 1)">❯</button>
+            <div class="carousel-dots">
+              <span class="dot active" onclick="setSlide(this, 0)"></span>
+              <span class="dot" onclick="setSlide(this, 1)"></span>
+            </div>
+          </div>
+          <div class="card-content">
+            <span class="week-badge">Módulo 01</span>
+            <h2>Fundamentos y Arquitectura de Sistemas de Bases de Datos</h2>
+            <p>Introducción a los conceptos clave de bases de datos. Comparativa entre la gestión tradicional de archivos y los Sistemas de Gestión de Bases de Datos (SGBD/DBMS). Estudio de la arquitectura ANSI/SPARC de tres niveles (Externo, Conceptual e Interno) e independencia de datos.</p>
+          </div>
+        </article>
+
+        <!-- Módulo 2 -->
+        <article class="card week-card modulo-2">
+          <div class="carousel-container">
+            <img src="images/semana02-1.png" alt="Diagrama Entidad Relacion" class="carousel-img active" onclick="openModal(this.src)" onerror="this.src='https://placehold.co/600x350/050914/00f2fe?text=Diagramas+Entidad-Relaci%C3%B3n+(DER)'">
+            <img src="images/semana02-2.png" alt="Atributos y Cardinalidades" class="carousel-img" onclick="openModal(this.src)" onerror="this.src='https://placehold.co/600x350/050914/4facfe?text=Cardinalidad+1:1,+1:N,+N:M+y+Claves'">
+            <button class="carousel-btn prev" onclick="moveSlide(this, -1)">❮</button>
+            <button class="carousel-btn next" onclick="moveSlide(this, 1)">❯</button>
+            <div class="carousel-dots">
+              <span class="dot active" onclick="setSlide(this, 0)"></span>
+              <span class="dot" onclick="setSlide(this, 1)"></span>
+            </div>
+          </div>
+          <div class="card-content">
+            <span class="week-badge">Módulo 02</span>
+            <h2>Modelado de Datos Conceptual (Diagrama Entidad-Relación)</h2>
+            <p>Diseño conceptual de bases de datos mediante el Modelo Entidad-Relación (DER). Definición de entidades, atributos (simples, compuestos, multivaluados), relaciones y tipos de cardinalidad (1:1, 1:N, N:M). Identificación de Claves Primarias (PK) y Claves Foráneas (FK).</p>
+          </div>
+        </article>
+
+        <!-- Módulo 3 -->
+        <article class="card week-card modulo-3">
+          <div class="carousel-container">
+            <img src="images/semana03-1.png" alt="Modelo Relacional" class="carousel-img active" onclick="openModal(this.src)" onerror="this.src='https://placehold.co/600x350/050914/00f2fe?text=Transformaci%C3%B3n+DER+a+Tablas+Relacionales'">
+            <img src="images/semana03-2.jpg" alt="Normalizacion" class="carousel-img" onclick="openModal(this.src)" onerror="this.src='https://placehold.co/600x350/050914/4facfe?text=Reglas+de+Normalizaci%C3%B3n+(1FN,+2FN,+3FN)'">
+            <button class="carousel-btn prev" onclick="moveSlide(this, -1)">❮</button>
+            <button class="carousel-btn next" onclick="moveSlide(this, 1)">❯</button>
+            <div class="carousel-dots">
+              <span class="dot active" onclick="setSlide(this, 0)"></span>
+              <span class="dot" onclick="setSlide(this, 1)"></span>
+            </div>
+          </div>
+          <div class="card-content">
+            <span class="week-badge">Módulo 03</span>
+            <h2>El Modelo Relacional y Reglas de Normalización</h2>
+            <p>Mapeo del modelo conceptual a esquemas relacionales. Estudio de las reglas de integridad de dominio, de entidad y referencial. Aplicación técnica del proceso de Normalización (Primera, Segunda y Tercera Forma Normal - 1FN, 2FN, 3FN) para eliminar redundancias y anomalías.</p>
+          </div>
+        </article>
+
+        <!-- Módulo 4 -->
+        <article class="card week-card modulo-4">
+          <div class="carousel-container">
+            <img src="images/semana04-1.png" alt="SQL DDL Create Table" class="carousel-img active" onclick="openModal(this.src)" onerror="this.src='https://placehold.co/600x350/050914/00f2fe?text=Lenguaje+SQL+-+Scripts+DDL+(CREATE,+ALTER)'">
+            <img src="images/semana04-2.png" alt="Tipos de datos y Constraints" class="carousel-img" onclick="openModal(this.src)" onerror="this.src='https://placehold.co/600x350/050914/4facfe?text=Restricciones+PRIMARY+KEY,+FOREIGN+KEY,+CHECK'">
+            <button class="carousel-btn prev" onclick="moveSlide(this, -1)">❮</button>
+            <button class="carousel-btn next" onclick="moveSlide(this, 1)">❯</button>
+            <div class="carousel-dots">
+              <span class="dot active" onclick="setSlide(this, 0)"></span>
+              <span class="dot" onclick="setSlide(this, 1)"></span>
+            </div>
+          </div>
+          <div class="card-content">
+            <span class="week-badge">Módulo 04</span>
+            <h2>Lenguaje SQL: Lenguaje de Definición de Datos (DDL)</h2>
+            <p>Creación e implementación práctica de la estructura de la base de datos en un SGBD (MySQL / PostgreSQL / SQL Server). Uso de sentencias DDL: `CREATE DATABASE`, `CREATE TABLE`, `ALTER TABLE` y `DROP TABLE`. Definición de tipos de datos y restricciones (`NOT NULL`, `UNIQUE`, `CHECK`, `FOREIGN KEY`).</p>
+          </div>
+        </article>
+
+        <!-- Módulo 5 -->
+        <article class="card week-card modulo-5">
+          <div class="carousel-container">
+            <img src="images/semana05-1.png" alt="SQL DML Consultas" class="carousel-img active" onclick="openModal(this.src)" onerror="this.src='https://placehold.co/600x350/050914/00f2fe?text=Lenguaje+SQL+-+Consultas+DML+(SELECT,+JOIN)'">
+            <img src="images/semana05-2.png" alt="Agrupamiento y Filtros" class="carousel-img" onclick="openModal(this.src)" onerror="this.src='https://placehold.co/600x350/050914/4facfe?text=Filtros+WHERE,+GROUP+BY,+HAVING'">
+            <button class="carousel-btn prev" onclick="moveSlide(this, -1)">❮</button>
+            <button class="carousel-btn next" onclick="moveSlide(this, 1)">❯</button>
+            <div class="carousel-dots">
+              <span class="dot active" onclick="setSlide(this, 0)"></span>
+              <span class="dot" onclick="setSlide(this, 1)"></span>
+            </div>
+          </div>
+          <div class="card-content">
+            <span class="week-badge">Módulo 05</span>
+            <h2>Lenguaje SQL: Manipulación de Datos y Consultas (DML)</h2>
+            <p>Poblado y gestión de datos con sentencias `INSERT`, `UPDATE` y `DELETE`. Dominio de consultas de datos complejas mediante `SELECT`, filtrado con `WHERE`, ordenamiento con `ORDER BY`, funciones de agregación (`COUNT`, `SUM`, `AVG`), cláusulas `GROUP BY` / `HAVING` y uniones entre tablas (`INNER JOIN`, `LEFT JOIN`).</p>
+          </div>
+        </article>
+
+        <!-- Módulo 6 -->
+        <article class="card week-card modulo-6">
+          <div class="carousel-container">
+            <img src="images/semana06-1.png" alt="Proyecto Final Base de Datos" class="carousel-img active" onclick="openModal(this.src)" onerror="this.src='https://placehold.co/600x350/050914/00f2fe?text=Proyecto+Final+-+Caso+de+Estudio+Real'">
+            <img src="images/semana06-2.png" alt="Respaldo y Script SQL" class="carousel-img" onclick="openModal(this.src)" onerror="this.src='https://placehold.co/600x350/050914/4facfe?text=Exportaci%C3%B3n+de+Script+.SQL+y+Conclusiones'">
+            <button class="carousel-btn prev" onclick="moveSlide(this, -1)">❮</button>
+            <button class="carousel-btn next" onclick="moveSlide(this, 1)">❯</button>
+            <div class="carousel-dots">
+              <span class="dot active" onclick="setSlide(this, 0)"></span>
+              <span class="dot" onclick="setSlide(this, 1)"></span>
+            </div>
+          </div>
+          <div class="card-content">
+            <span class="week-badge">Módulo 06</span>
+            <h2>Proyecto Integrador e Implementación Final</h2>
+            <p>Desarrollo completo de un caso de negocio real. Desde el análisis de requerimientos, levantamiento del DER, normalización de tablas, ejecución del script DDL/DML, hasta la generación de respaldos (`.sql`) e informes de rendimiento.</p>
+            <h3>Conclusión de la Asignatura:</h3>
+            <p>El dominio de las Bases de Datos Relacionales constituye el pilar fundamental para el desarrollo de sistemas de información robustos, garantizando la integridad, seguridad y disponibilidad eficiente de los datos empresariales.</p>
+          </div>
+        </article>
+
+      </main>
+    </div>
+
+  </div>
+
+  <!-- MODAL EN PANTALLA COMPLETA -->
+  <div id="imgModal" class="modal" onclick="closeModal()">
+    <span class="modal-close">&times;</span>
+    <img class="modal-content" id="fullImg" alt="Vista ampliada de la evidencia">
+  </div>
+
+  <script>
+    // Manejo de rutas y Hash de navegación
+    function openPortfolio() {
+      window.location.hash = 'all';
+    }
+
+    function showCover() {
+      window.location.hash = '';
+    }
+
+    function filterWeek(weekClass) {
+      window.location.hash = weekClass;
+    }
+
+    // Ruteo dinámico de vistas
+    function handleRouting() {
+      const hash = window.location.hash.replace('#', '');
+      const coverView = document.getElementById('cover-view');
+      const portfolioView = document.getElementById('portfolio-view');
+      const header = document.getElementById('portfolio-header');
+      const cards = document.querySelectorAll('.week-card');
+
+      if (!hash) {
+        coverView.classList.remove('hidden');
+        portfolioView.classList.add('hidden');
+        window.scrollTo(0, 0);
+        return;
+      }
+
+      coverView.classList.add('hidden');
+      portfolioView.classList.remove('hidden');
+
+      if (hash === 'all') {
+        header.classList.remove('hidden');
+      } else {
+        header.classList.add('hidden');
+      }
+
+      cards.forEach(card => {
+        if (hash === 'all') {
+          card.classList.remove('hidden');
+        } else if (card.classList.contains(hash)) {
+          card.classList.remove('hidden');
+        } else {
+          card.classList.add('hidden');
+        }
+      });
+
+      window.scrollTo(0, 0);
+    }
+
+    window.addEventListener('hashchange', handleRouting);
+    window.addEventListener('DOMContentLoaded', handleRouting);
+
+    /* CARRUSEL DE IMÁGENES */
+    function showSlide(container, index) {
+      const images = container.querySelectorAll('.carousel-img');
+      const dots = container.querySelectorAll('.dot');
+      if (images.length <= 1) return;
+
+      let newIndex = index;
+      if (index >= images.length) newIndex = 0;
+      if (index < 0) newIndex = images.length - 1;
+
+      images.forEach((img, i) => {
+        img.classList.toggle('active', i === newIndex);
+      });
+
+      if (dots.length > 0) {
+        dots.forEach((dot, i) => {
+          dot.classList.toggle('active', i === newIndex);
+        });
+      }
+    }
+
+    function moveSlide(button, direction) {
+      const container = button.closest('.carousel-container');
+      const images = container.querySelectorAll('.carousel-img');
+      let currentIndex = 0;
+
+      images.forEach((img, i) => {
+        if (img.classList.contains('active')) currentIndex = i;
+      });
+
+      showSlide(container, currentIndex + direction);
+    }
+
+    function setSlide(dot, index) {
+      const container = dot.closest('.carousel-container');
+      showSlide(container, index);
+    }
+
+    /* MODAL DE AMPLIFICACIÓN DE IMAGEN */
+    function openModal(src) {
+      const modal = document.getElementById('imgModal');
+      const fullImg = document.getElementById('fullImg');
+      modal.style.display = 'flex';
+      fullImg.src = src;
+    }
+
+    function closeModal() {
+      document.getElementById('imgModal').style.display = 'none';
+    }
+	
+	function filterStudents() {
+      const input = document.getElementById('studentSearch').value.toLowerCase();
+      const rows = document.querySelectorAll('#studentsTable tbody tr');
+      let visibleCount = 0;
+
+      rows.forEach(row => {
+        const text = row.textContent.toLowerCase();
+        if (text.includes(input)) {
+          row.style.display = '';
+          visibleCount++;
+        } else {
+          row.style.display = 'none';
+        }
+      });
+
+      document.getElementById('sqlRowCount').textContent =
+        `${visibleCount} ${visibleCount === 1 ? 'row' : 'rows'} in set`;
+    }
+  </script>
+
+</body>
+</html>
