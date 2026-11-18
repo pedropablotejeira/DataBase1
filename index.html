@@ -701,7 +701,9 @@
       line-height: 1.8;
       margin-bottom: 16px;
     }
-	
+	.grid.compact-view .card-content p {
+      display: none !important;
+    }
   </style>
 </head>
 <body>
@@ -829,7 +831,7 @@
 					<tr><td class="col-pk">13</td><td>Jiménez, Osiel</td><td class="col-cedula">8-1050-1328</td></tr>
 					<tr><td class="col-pk">14</td><td>Mata, Abdi</td><td class="col-cedula">8-1011-1391</td></tr>
 					<tr><td class="col-pk">15</td><td>Tejeira, Pedro</td><td class="col-cedula">8-741-1265</td></tr>
-					<tr><td class="col-pk">16</td><td>Vargas, Wagner</td><td class="col-cedula">************</td></tr>
+					<tr><td class="col-pk">16</td><td>Vargas, Wagner</td><td class="col-cedula">8-1061-617</td></tr>
                     <tr><td class="col-pk">17</td><td>Vives, Levis</td><td class="col-cedula">E-8-22-4213</td></tr>
 					<tr><td class="col-pk">18</td><td>Wilson, Eliecer</td><td class="col-cedula">8-800-1826</td></tr>
 				  </tbody>
@@ -853,9 +855,40 @@
 
       </div>
     </div>
+<!-- PÁGINA DE INTRODUCCIÓN -->
+    <div id="intro-view" class="hidden">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 12px;">
+        <button class="btn-back" style="margin-bottom: 0;" onclick="showCover()">📋 Volver a la Portada</button>
+        
+        <button class="btn-enter" style="padding: 10px 24px; font-size: 0.95rem;" onclick="openPortfolio()">Explorar Módulos →</button>
+        
+        <button class="week-btn" style="padding: 10px 18px; font-size: 0.9rem; min-height: auto; background: rgba(127, 83, 172, 0.25); border-color: var(--accent-purple);" onclick="location.hash='conclusion'">📌 Conclusiones →</button>
+      </div>
+      <div class="text-page-container">
+        <h2>Introducción</h2>
+        <p>El presente portafolio de evidencias de la asignatura <strong>Base de Datos I</strong> recopila el compendio de conocimientos teóricos y prácticos desarrollados a lo largo del cuatrimestre por el grupo <strong>D-CS-2-1</strong> del Instituto Técnico Superior Especializado (ITSE). Su propósito central es documentar de manera estructurada el proceso de aprendizaje en el diseño, gestión y explotación de sistemas de Bases de Datos.</p>
+        <p>A lo largo de los ocho módulos que componen este compendio, se abordan desde los fundamentos de la arquitectura de los Sistemas de Gestión de Bases de Datos (SGBD) y el modelado conceptual mediante Diagramas Entidad-Relación (DER), hasta la normalización de tablas y la aplicación práctica de instrucciones en Lenguaje de Definición y Manipulación de Datos (DDL y DML) en SQL. Este recorrido refleja el esfuerzo colaborativo del equipo para garantizar la integridad, seguridad y eficiencia en el tratamiento de la información.</p>
+      </div>
+    </div>
 
+    <!-- PÁGINA DE CONCLUSIÓN -->
+    <div id="conclusion-view" class="hidden">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 12px;">
+        <button class="week-btn" style="padding: 10px 18px; font-size: 0.9rem; min-height: auto; background: rgba(0, 242, 254, 0.15); border-color: var(--accent-cyan);" onclick="location.hash='intro'">← Introducción</button>
+        
+        <button class="btn-enter" style="padding: 10px 24px; font-size: 0.95rem;" onclick="openPortfolio()">Explorar Módulos →</button>
+
+        <button class="btn-back" style="margin-bottom: 0;" onclick="showCover()">📋 Volver a la Portada</button>
+      </div>
+      <div class="text-page-container">
+        <h2>Conclusiones</h2>
+        <p>El desarrollo de este portafolio permitió consolidar de forma integral los conceptos fundamentales en la administración y estructuración de bases de datos relacionales. Se comprobó que una fase de diseño conceptual rigurosa —basada en el correcto levantamiento de entidades, atributos y cardinalidades— es indispensable para prevenir anomalías y redundancias críticas en el almacenamiento de los datos.</p>
+        <p>Asimismo, la implementación técnica mediante sentencias SQL (DDL, DML y consultas multitabla con operadores <em>JOIN</em>) otorgó al grupo la capacidad operativa para transformar esquemas teóricos en bases de datos funcionales, seguras y optimizadas. La ejecución de este proyecto integrador reafirma que los sistemas de bases de datos constituyen el núcleo operativo fundamental sobre el cual se edifican todas las soluciones tecnológicas e informáticas modernas.</p>
+      </div>
+    </div>
     <!-- PÁGINAS SIGUIENTES: NAVEGACIÓN Y PORTAFOLIO -->
-    <div id="portfolio-view" class="hidden">
+    
+	<div id="portfolio-view" class="hidden">
       
       <!-- Barra superior unificada: Volver, Ver Todos, Introducción y Conclusión -->
       <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; flex-wrap: wrap; gap: 10px;">
@@ -877,19 +910,19 @@
       <!-- Encabezado que se muestra al filtrar o ver todo -->
       <header id="portfolio-header">
         <h1>Portafolio de Base de Datos I</h1>
-        <p>Grupo D-CS-2-1 | Compendio de Modelado, Diagramas Entidad-Relación, Normalización y Lenguaje SQL</p>
+        <p>Grupo D-CS-2-1 | Compendio de Modelado, Diagramas Entidad-Relación, Normalización y Lenguaje MySQL</p>
       </header>
 
       <!-- Navegación por Módulos Temáticos de Base de Datos I -->
       <div class="weeks-nav">
         <button class="week-btn" onclick="filterWeek('modulo-1')">01. Fundamentos</button>
         <button class="week-btn" onclick="filterWeek('modulo-2')">02. Modelado</button>
-        <button class="week-btn" onclick="filterWeek('modulo-3')">03. Reglas</button>
-        <button class="week-btn" onclick="filterWeek('modulo-4')">04. Módulo 04</button>
-        <button class="week-btn" onclick="filterWeek('modulo-5')">05. Módulo 05</button>
-		<button class="week-btn" onclick="filterWeek('modulo-6')">06. Módulo 06</button>
-        <button class="week-btn" onclick="filterWeek('modulo-7')">07. Módulo 07</button>
-        <button class="week-btn" onclick="filterWeek('modulo-8')">08. Módulo 08</button>
+        <button class="week-btn" onclick="filterWeek('modulo-3')">03. Cardinalidad</button>
+        <button class="week-btn" onclick="filterWeek('modulo-4')">04. Reglas</button>
+        <button class="week-btn" onclick="filterWeek('modulo-5')">05. Lenguaje DDL</button>
+		<button class="week-btn" onclick="filterWeek('modulo-6')">06. Lenguaje DML</button>
+        <button class="week-btn" onclick="filterWeek('modulo-7')">07. Consultas</button>
+        <button class="week-btn" onclick="filterWeek('modulo-8')">08. Proyecto</button>
       </div>
 	  <main class="grid">
 
@@ -1038,30 +1071,50 @@
     function handleRouting() {
       const hash = window.location.hash.replace('#', '');
       const coverView = document.getElementById('cover-view');
+      const introView = document.getElementById('intro-view');
+      const conclusionView = document.getElementById('conclusion-view');
       const portfolioView = document.getElementById('portfolio-view');
       const header = document.getElementById('portfolio-header');
       const cards = document.querySelectorAll('.week-card');
+      const gridContainer = document.querySelector('.grid');
+
+      // Ocultar todas las vistas por defecto
+      coverView.classList.add('hidden');
+      introView.classList.add('hidden');
+      conclusionView.classList.add('hidden');
+      portfolioView.classList.add('hidden');
 
       if (!hash) {
         coverView.classList.remove('hidden');
-        portfolioView.classList.add('hidden');
         window.scrollTo(0, 0);
         return;
       }
 
-      coverView.classList.add('hidden');
+      if (hash === 'intro') {
+        introView.classList.remove('hidden');
+        window.scrollTo(0, 0);
+        return;
+      }
+
+      if (hash === 'conclusion') {
+        conclusionView.classList.remove('hidden');
+        window.scrollTo(0, 0);
+        return;
+      }
+
+      // Si es el portafolio o un módulo específico
       portfolioView.classList.remove('hidden');
 
       if (hash === 'all') {
         header.classList.remove('hidden');
+        gridContainer.classList.add('compact-view'); // Muestra solo carrusel y título en "Ver Todo"
       } else {
         header.classList.add('hidden');
+        gridContainer.classList.remove('compact-view'); // Muestra la leyenda completa al filtrar un módulo
       }
 
       cards.forEach(card => {
-        if (hash === 'all') {
-          card.classList.remove('hidden');
-        } else if (card.classList.contains(hash)) {
+        if (hash === 'all' || card.classList.contains(hash)) {
           card.classList.remove('hidden');
         } else {
           card.classList.add('hidden');
